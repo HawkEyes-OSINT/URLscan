@@ -15,8 +15,7 @@ setup(
     url='https://github.com/HawkEyes-OSINT/URLscan',
     packages=find_packages(),
     install_requires=[
-        'requests',
-        'time'
+        'requests'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
