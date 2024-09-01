@@ -1,3 +1,21 @@
+Metadata-Version: 2.1
+Name: urlscan-lib
+Version: 0.1.0
+Summary: A Python library for interacting with the URLScan.io API
+Home-page: https://github.com/HawkEyes-OSINT/URLscan
+Author: HawkEyes
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # URLScan Library
 
 The URLScan Library is a Python library that provides a convenient way to interact with the URLScan.io API. It allows you to submit URLs for scanning, retrieve scan results, search for existing scans, and check your API credits.
@@ -6,7 +24,7 @@ The URLScan Library is a Python library that provides a convenient way to intera
 
 You can install the URLScan Library using pip:
 
-        pip install git+https://github.com/HawkEyes-OSINT/URLscan.git
+        pip install urlscan_library
 
 
 ## Usage
