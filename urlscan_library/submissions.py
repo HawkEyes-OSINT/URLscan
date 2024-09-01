@@ -5,7 +5,7 @@ import requests
 import time
 
 
-def see_credits(api_key, keys_to_keep = ['']):
+def see_credits(api_key, wait_time=30):
     """
     Retrieves the current credit balance for the given API key.
 
@@ -24,11 +24,23 @@ def see_credits(api_key, keys_to_keep = ['']):
 
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
+        # accepted scan
         return response.json()
+
+    elif response.status_code == 429 or response.status_code == 404:
+        # server connection issue or incomplete scan
+        if wait_time:
+            time.sleep(5)
+            return see_credits(api_key, wait_time=wait_time-5)
+        else:
+            return response
+
     else:
         return response.status_code
+    
 
-def submit_url(scan_url, api_key):
+
+def submit_url(scan_url, api_key, wait_time=30):
     """
     Submits a URL for scanning by the URLscan.io service.
 
@@ -52,7 +64,18 @@ def submit_url(scan_url, api_key):
 
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
+        # accepted scan
         return response.json()
+    
+    elif response.status_code == 429:
+        # server connection issue
+        time.sleep(5)
+        return submit_url(scan_url, api_key, wait_time=wait_time-5)
+    
+    elif response.status_code == 400:
+        # rejected scan
+        return response.json()
+    
     else:
         return response.status_code
     

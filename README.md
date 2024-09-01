@@ -1,0 +1,69 @@
+# URLScan Library
+
+The URLScan Library is a Python library that provides a convenient way to interact with the URLScan.io API. It allows you to submit URLs for scanning, retrieve scan results, search for existing scans, and check your API credits.
+
+## Installation
+
+You can install the URLScan Library using pip:
+
+        pip install urlscan_library
+
+
+## Usage
+
+The library consists of three modules: `submissions.py`, `result.py`, and `search.py`.
+
+### submissions.py
+
+This module is used to view your API credits and submit URLs to be scanned.
+
+```python
+from urlscan_lib.submissions import see_credits, submit_url, submit_url_list
+
+# Set your URLScan.io API key
+api_key = os.environ.get('URLSCAN_API_KEY')
+
+# Check remaining API credits
+credits = see_credits(api_key, wait_time=30)
+print(f'Remaining credits: {credits}')
+
+# Submit a URL for scanning
+url = 'https://example.com'
+scan_result = submit_url(url, api_key, wait_time=30)
+print(scan_result)
+
+# Submit a list of URLs for scanning
+url_list = ['https://example.com', 'https://example.org']
+scan_results = submit_url_list(url_list, api_key)
+print(scan_results)
+
+### result.py
+
+This module is used to get the results of scanned URLs from the scan UUID.
+
+# Get the scan results
+uuid = 'scan-uuid-here'
+scan_result = get_result(uuid, wait_time=30)
+print(scan_result)
+
+# Get the PNG snapshot
+png_snapshot = get_png_snapshot(uuid, wait_time=30)
+
+# Get the DOM snapshot
+dom_snapshot = get_dom_snapshot(uuid, wait_time=30)
+
+### search.py
+
+This module is used to search for information from various data.
+
+from urlscan_lib.search import search
+
+# Search for scans
+parameter = 'example.com'
+field_name = 'domain'
+size = 100
+wait_time = 30
+search_results = search(parameter, field_name, size, wait_time)
+print(search_results)
+
+For detailed information about the various fileds and parameter formats, refer to: https://urlscan.io/docs/search/
