@@ -24,7 +24,17 @@ def see_credits(api_key, keys_to_keep = ['']):
 
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
+        # accepted scan
         return response.json()
+
+    elif response.status_code == 429:
+        # server connection issue
+        time.sleep(5)
+        return see_credits(api_key)
+    
+    else:
+        return response.status_code
+    
     else:
         return response.status_code
 
@@ -52,7 +62,18 @@ def submit_url(scan_url, api_key):
 
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
+        # accepted scan
         return response.json()
+    
+    elif response.status_code == 429:
+        # server connection issue
+        time.sleep(5)
+        return submit_url(scan_url, api_key)
+    
+    elif response.status_code == 400:
+        # rejected scan
+        return response.json()
+    
     else:
         return response.status_code
     
